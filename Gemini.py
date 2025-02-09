@@ -35,11 +35,15 @@ def ask_gemini_about_pdf(pdf_path, question):
         return f"Error asking Gemini: {e}"
 
 def main():
-    pdf_file_path = "Manual.pdf"  # Replace with your PDF path
-    user_question = input("Enter your question about the PDF: ")
+    pdf_file_path = "Manual.pdf"
 
-    answer = ask_gemini_about_pdf(pdf_file_path, user_question)
-    print(answer)
+    questions = [
+        "I just shared a manufacturing installation manual for a product with you. If you understand the following information from the manual, answer yes. Here is the product to be installed (with exact product name and model number if provided, required tools with details, cautious items during installation, and step by step process."
+    ]
+
+    for question in questions:
+        answer = ask_gemini_about_pdf(pdf_file_path, question)
+        print(f"Answer: {answer}")
 
 if __name__ == "__main__":
     main()
