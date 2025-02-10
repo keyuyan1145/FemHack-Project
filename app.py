@@ -44,11 +44,12 @@ def search_instruction():
         # Your logic here
         result = search_instruction_ai(role, product, action)
         print("search result: ", result)
-        result = {
-            'message': 'Success',
-            'step_count': len(result),
-            'steps': result
-        }
+        return result
+        # result = {
+        #     'message': 'Success',
+        #     'step_count': len(result),
+        #     'steps': result
+        # }
         
         return jsonify(result), 200
         

@@ -62,13 +62,15 @@ def search_instruction_ai(
             raise Exception("Sorry, unable to fetch instructions for the given product")
 
         tool_response = str(
-            call_ai_chat(tool_prompt, model).choices[0].message
+            call_ai_chat(tool_prompt, model).choices[0].message.content
         ).replace("\n", " ")
 
-        # print("tool_response: ", tool_response)
+        print("tool_response: ", tool_response)
         # print("type of response.choices[0].message: ", type(response.choices[0].message))
 
-        tool_list = re.split(r'\d.', tool_response)
+        # tool_list = re.split(r'\d.', tool_response)
+        tool_list = re.split(r'\d.', tool_response)[1:]
+
 
         print("tool_list.size = ", len(tool_list))
 
@@ -76,11 +78,11 @@ def search_instruction_ai(
         # print("type after str cast: ", type(content))
 
         step_response = str(
-            call_ai_chat(steps_prompt, model).choices[0].message
+            call_ai_chat(steps_prompt, model).choices[0].message.content
         ).replace("\n", " ")
 
-        print("step_response: ", step_response)
-        steps = re.split(r'\d.', step_response)
+        # print("step_response: ", step_response)
+        steps = re.split(r'\d.', step_response)[1:]
 
         print("number of steps: ", len(steps))
 
@@ -90,7 +92,8 @@ def search_instruction_ai(
         
         return {
             "success": True,
-            "content": steps,
+            "steps": steps,
+            "tools": tool_list,
             "model": model
         }
         
